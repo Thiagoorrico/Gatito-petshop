@@ -1,0 +1,54 @@
+@use "sass:math";
+
+$purple: #A050BE;
+$light-grey:#eaeaeb;
+$dark-grey: #464646;
+$yellow: #FABE50;
+$img-width:45%;
+
+%no-decoration {text-decoration: none;}
+%u-decoration {text-decoration: underline;}
+
+@mixin reset-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+@mixin flx($property, $jty--ctn) {
+    display: flex;
+    #{$property}:$jty--ctn; 
+}
+
+
+@mixin for-phone-only {
+    @media(max-width: 767.98px) { @content; }
+}
+
+
+@mixin for-tablet-only {
+    @media(min-width: 767.98px) and (max-width:1199.99px) { @content; }    
+}
+
+@mixin for-desktop-only {
+    @media(min-width: 1200px) { @content; }    
+}
+@function calculateRem($size) {
+    @return math.div($size, 16px) * 1rem;
+}
+
+@mixin fontSize ($size) {
+    font-size: calculateRem($size);
+}
+
+$directions: top, bottom, left, right;
+$layout-margin-size:10px;
+
+@each $direction in $directions {
+    %no-margin-#{$direction}{margin-#{$direction}:0;}
+    %default-margin-#{$direction} {margin-#{$direction}:$layout-margin-size;} 
+    %double-margin-#{$direction} {margin-#{$direction}:$layout-margin-size * 2;}
+    %half-margin-#{$direction} {margin-#{$direction}:math.div($layout-margin-size, 2)}
+}
+
+@import 'header', 'main','about','article','collection','comments','contact','footer';
